@@ -55,7 +55,7 @@ class _SettingPageState extends State<SettingPage> {
                   IconButton(
                     onPressed: () async {
                       final restaurant = await ApiService().allResto();
-                      NotificationHelper().showNotification(
+                      await NotificationHelper().showNotification(
                         flutterLocalNotificationsPlugin,
                         restaurant,
                       );

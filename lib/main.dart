@@ -2,10 +2,23 @@ import 'package:dicoding_fundamental_submission_3_restaurant_app_final/ui/detail
 import 'package:dicoding_fundamental_submission_3_restaurant_app_final/ui/favorite_page.dart';
 import 'package:dicoding_fundamental_submission_3_restaurant_app_final/ui/home_page.dart';
 import 'package:dicoding_fundamental_submission_3_restaurant_app_final/ui/setting_page.dart';
+import 'package:dicoding_fundamental_submission_3_restaurant_app_final/utils/notification_helper.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 
-void main() {
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  final NotificationHelper notificationHelper = NotificationHelper();
+
+  await notificationHelper.initNotifications(flutterLocalNotificationsPlugin);
+  notificationHelper.requestAndroidPermissions(flutterLocalNotificationsPlugin);
+  notificationHelper.requestIOSPermissions(flutterLocalNotificationsPlugin);
+
   runApp(const MyApp());
 }
 

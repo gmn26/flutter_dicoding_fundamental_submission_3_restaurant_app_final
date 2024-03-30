@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 import 'package:dicoding_fundamental_submission_3_restaurant_app_final/data/model/restaurant.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:rxdart/subjects.dart';
@@ -40,6 +41,30 @@ class NotificationHelper {
     );
   }
 
+  void requestAndroidPermissions(
+      FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin) {
+    flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin>()
+        ?.requestExactAlarmsPermission();
+    flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin>()
+        ?.requestNotificationsPermission();
+  }
+
+  void requestIOSPermissions(
+      FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin) {
+    flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<
+            IOSFlutterLocalNotificationsPlugin>()
+        ?.requestPermissions(
+          alert: true,
+          badge: true,
+          sound: true,
+        );
+  }
+
   Future<void> showNotification(
       FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin,
       Restaurant restaurant) async {
@@ -61,21 +86,11 @@ class NotificationHelper {
       iOS: iOSPlatformChannelSpecifics,
     );
 
-    var titleNotification = "<b>Headline News</b>";
+    var titleNotification = "<b>Today Recommendation</b>";
     var titleNews = restaurant.restaurants[0].name;
 
     await flutterLocalNotificationsPlugin.show(
         0, titleNotification, titleNews, platformChannelSpecifics,
         payload: json.encode(restaurant.toJson()));
   }
-
-  // void configureSelectNotificationSubject(String route) {
-  //   selectNotificationSubject.stream.listen(
-  //     (String payload) async {
-  //       var data = ArticlesResult.fromJson(json.decode(payload));
-  //       var article = data.articles[0];
-  //       Navigation.intentWithData(route, article);
-  //     },
-  //   );
-  // }
 }
