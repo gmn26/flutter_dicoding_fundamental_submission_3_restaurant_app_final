@@ -60,7 +60,7 @@ class _SettingPageState extends State<SettingPage> {
                         restaurant,
                       );
                     },
-                    icon: Icon(Icons.notifications_active),
+                    icon: const Icon(Icons.notifications_active),
                   )
                 ],
               ),

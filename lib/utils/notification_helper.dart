@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:math';
 import 'package:dicoding_fundamental_submission_3_restaurant_app_final/data/model/restaurant.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:rxdart/subjects.dart';
@@ -90,7 +89,11 @@ class NotificationHelper {
     var titleNews = restaurant.restaurants[0].name;
 
     await flutterLocalNotificationsPlugin.show(
-        0, titleNotification, titleNews, platformChannelSpecifics,
-        payload: json.encode(restaurant.toJson()));
+      0,
+      titleNotification,
+      titleNews,
+      platformChannelSpecifics,
+      payload: json.encode(restaurant.toJson()),
+    );
   }
 }
